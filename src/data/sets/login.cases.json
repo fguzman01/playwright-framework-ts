@@ -1,0 +1,41 @@
+[
+  {
+    "id": "ok-standard",
+    "description": "Login exitoso con usuario estándar",
+    "creds": { "username": "standard_user", "password": "secret_sauce" },
+    "outcome": "success",
+    "tags": ["smoke", "happy-path"]
+  },
+  {
+    "id": "locked-out",
+    "description": "Usuario bloqueado no puede ingresar",
+    "creds": { "username": "locked_out_user", "password": "secret_sauce" },
+    "outcome": "locked",
+    "expectedError": "Epic sadface: Sorry, this user has been locked out.",
+    "tags": ["negative"]
+  },
+  {
+    "id": "missing-username",
+    "description": "Falta username",
+    "creds": { "username": "", "password": "secret_sauce" },
+    "outcome": "missing-username",
+    "expectedError": "Epic sadface: Username is required",
+    "tags": ["negative", "validation"]
+  },
+  {
+    "id": "missing-password",
+    "description": "Falta password",
+    "creds": { "username": "standard_user", "password": "" },
+    "outcome": "missing-password",
+    "expectedError": "Epic sadface: Password is required",
+    "tags": ["negative", "validation"]
+  },
+  {
+    "id": "invalid-password",
+    "description": "Password incorrecto",
+    "creds": { "username": "standard_user", "password": "wrong" },
+    "outcome": "invalid",
+    "expectedError": "Epic sadface: Username and password do not match any user in this service",
+    "tags": ["negative"]
+  }
+]

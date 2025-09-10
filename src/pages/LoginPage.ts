@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test';
-import { safeFill, safeClick, safeGoto } from '../utils/webUtils';
+import { safeFill, safeClick, safeGoto, waitElement } from '../utils/webUtils';
 
 export class LoginPage {
   constructor(private readonly page: Page) {}
@@ -8,7 +8,7 @@ export class LoginPage {
   private readonly usernameSelector = '[data-test="username"]';
   private readonly passwordSelector = '[data-test="password"]';
   private readonly loginButtonSelector = '[data-test="login-button"]';
-  private readonly inventoryContainerSelector = '#inventory_container';
+  private readonly inventoryContainerSelector = '[data-test="inventory-container"]';
   private readonly errorSelector = '[data-test="error"]';
 
   /**
@@ -22,14 +22,17 @@ export class LoginPage {
    * Acciones atómicas (micro-métodos)
    */
   async fillUsername(username: string): Promise<void> {
+    await waitElement(this.page, this.usernameSelector, { state: 'visible', expectEnabled: true, log: 'all', logLabel: 'username' });
     await safeFill(this.page, this.usernameSelector, username, { clear: true, log: 'all', logLabel: 'username' });
   }
 
   async fillPassword(password: string): Promise<void> {
+    await waitElement(this.page, this.passwordSelector, { state: 'visible', expectEnabled: true, log: 'all', logLabel: 'password' });
     await safeFill(this.page, this.passwordSelector, password, { log: 'all', logLabel: 'password' });
   }
 
   async clickLogin(): Promise<void> {
+    await waitElement(this.page, this.loginButtonSelector, { state: 'visible', expectEnabled: true, log: 'all', logLabel: 'loginButton' });
     await safeClick(this.page, this.loginButtonSelector, { log: 'all', logLabel: 'loginButton' });
   }
 

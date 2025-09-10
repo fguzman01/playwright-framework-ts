@@ -5,13 +5,20 @@
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
-    "test:debug": "playwright test --debug"
+    "test:debug": "playwright test --debug",
+    "test:bdd": "cucumber-js --require-module ts-node/register --require tests/runners/hooks.ts --require tests/bdd/step-definitions/**/*.ts tests/bdd/features/**/*.feature",
+    "test:local:slow": "cross-env HEADLESS=false SLOWMO_MS=3000 ACTION_DELAY_MS=3000 playwright test --headed"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.55.0"
+    "@cucumber/cucumber": "^12.2.0",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.3.1",
+    "cross-env": "^10.0.0",
+    "playwright": "^1.55.0",
+    "ts-node": "^10.9.2"
   }
 }
